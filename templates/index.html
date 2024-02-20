@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+  body {
+    background-color: #ece5ce;
+  }
+
+  #outer {
+    height: 500px;
+  }
+
+  #photo {
+
+    height: 100%;
+    filter: brightness(0.6);
+  }
+
+  #categoryphotos{
+    filter: brightness(0.6);
+  }
+</style>
+<!-- carousal start -->
+<section>
+  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" id="outer">
+        <img src="{% static 'images/Farmc-1.avif' %}" class="d-block w-100  mx-auto" alt="..." id="photo">
+        <div class="carousel-caption d-none d-md-block mt-4 top-0">
+          <h1 class="mt-5 display-1 "> Welcome to The <strong>Sunshine Farms! </strong> </h1>
+          <p class="mt-5 fs-3 text-sm text-upper">Fresh from fertile fields painted with organic hues and bursting with
+            the earth's vibrant energy.</p>
+        </div>
+      </div>
+      <div class="carousel-item" id="outer">
+        <img src="{% static 'images/Farmc-2.jpg' %}" class="d-block w-100" alt="..." id="photo">
+        <div class="carousel-caption d-none d-md-block  mt-5 top-0">
+          <h5 class="mt-5 display-1 ">Unbox Nature's Treasures</h5>
+          <h3 class="mt-5 ">Taste the Difference, Feel the Soil Beneath Your Fingers</h3>
+        </div>
+      </div>
+      <div class="carousel-item" id="outer">
+        <img src="{% static 'images/Farmc-3.jpg' %}" class="d-block w-100" alt="..." id="photo">
+        <div class="carousel-caption d-none d-md-block mt-4 top-0">
+          <h1 class="mt-5 display-1 "> <strong>Field to Fridge, Fresh happiness delivered</strong> </h1>
+          <p class="mt-5 fs-3 text-sm text-capitalize">Skip the middleman and embrace the earth-to-table revolution.</p>
+        </div>
+
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+</section>
+<!-- Carousal end -->
+
+<!-- Loop -->
+<section class="container">
+  <h3 style="font-family: Attena; text-align: center;" class="mt-5">Our Trending Products!</h3>
+
+  <div class="row ">
+    {% for product in product %}
+    
+    <div class="col-md-3 mt-5 " style="font-family: Arial rounded mt;">
+      <div class="card p-2 shadow" style="background-color: bisque;">
+        <img src=" {{ product.image.url }} " style="height: 320px;" class="card-img-top rounded" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"> {{ product.name }} </h5>
+          <p class="card-text" style="font-family: calibri;"> {{ product.details | truncatewords:7 }} </p>
+          <a href="/productdetails/{{ product.id }}" class="btn btn-primary">Details</a>
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+{% endblock body %}

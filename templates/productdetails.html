@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+body{
+    background-color: #ece5ce;
+}
+
+</style>
+    <div class="container ">
+        <div class="row mt-5">
+            <div class="col-md-7 offset-md-2">
+                <div class="row ">
+                    <div class="col-md-5 ">
+                        <img src="{{ product.image.url }}" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-md-6 offset-md-1">
+                        <h3>Name: <br> {{product.name}}  </h3>
+                        <hr>
+
+                        <i>Description: <br><strong> {{product.details}}</strong> </i>
+                        <hr>
+                        <h3> {{product.price}} $ </h3>
+                        <a href="/addtocart/{{product.id}}"><button class="btn btn-danger">Add</button> </a>
+                        
+                        <a href="/"><button class="btn btn-danger">Back</button> </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}

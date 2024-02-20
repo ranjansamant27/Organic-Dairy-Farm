@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<style>
+    body{
+        background-color: #eceae2;
+    }
+    
+</style>
+
+<div class="container">
+
+    <div class="row ">
+        <div class="col-md-9 mx-auto">
+            
+            
+            <h2 class=" " style="text-align: center;">Cart</h2>
+
+            <div class="row">
+                <div class="row d-flex justify-content-end ">
+                    <a href="/clearcart/" class="btn btn-success col-md-3">Clear Cart</a>
+                  </div>
+                {% for Product in products %}
+                <div class="col-md-4">
+                    <img src="{{ Product.pid.image.url }}" class="img-fluid" alt="">
+                </div>
+                <div class="col-md-8">
+                    <p><strong>Name {{ Product.pid.name }}  :</strong></p>
+                    <p><strong>Price : {{Product.pid.price}} $ </strong></p>
+                    <p><strong>Details : {{Product.pid.details }}</strong></p>
+                    <p><strong>Quantity :  </strong>
+                    <a href="/updateqty/{{Product.id}}/0"> <button class="btn btn-success">-</button></a>
+                    <input type="number" value="{{ Product.quantity }}" >
+                    <a href="/updateqty/{{Product.id}}/1"> <button class="btn btn-success">+</button></a>
+                </p>
+                <a href="/remove/{{ Product.id }}/"><button class="btn btn-danger">Remove</button></a>
+                <a href="/"><button class="btn btn-danger">Add More</button></a>
+                </div>
+                <br>
+                <hr>
+                {% endfor %}
+            </div>
+            <div class="col-md-3">
+                <h5 class="bg-danger" style="text-align: center;">Total Amount</h5>
+                <p><strong>Total price: {{total}} $ </strong></p>
+                <a href="/checkout"><button class="btn bg-danger">Place Order</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
