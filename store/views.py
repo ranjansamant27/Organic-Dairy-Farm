@@ -12,7 +12,9 @@ from django.db.models import Q
 def index(request):
     context  = {}
     products=Products.objects.filter(is_active=True)
- 
+    product_name = request.GET.get('product_name')
+    if product_name !='' and product_name is not None:
+        products = Products.objects.filter(name__icontains=product_name)
     context={
         'product': products
     }
