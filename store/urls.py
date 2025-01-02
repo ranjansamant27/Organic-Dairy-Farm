@@ -17,6 +17,8 @@ urlpatterns = [
     path('updateqty/<id>/<qv>/',views.updateqty),
     path('clearcart/',views.clearcart),
     path('checkout/',views.checkout),
+    path('payment/',views.makepayment),
+    
     
 ]
 

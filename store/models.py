@@ -50,6 +50,15 @@ class Checkout(models.Model):
     def __str__(self):
         return str(self.name)
     
+class Payment(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,default=1)
+    amount=  models.FloatField(default=0)
+    
+    
+    date=models.DateField(default=datetime.datetime.today)
+    
+    
+    
     
 
     

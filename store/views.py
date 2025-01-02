@@ -2,9 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-from .models import Products,Cart,Checkout
+from .models import Products,Cart,Checkout,Payment
 from django.http import HttpResponse
 from django.db.models import Q
+# import razorpay
 
 
 # Create your views here.
@@ -203,9 +204,40 @@ def checkout(request):
         pincode= request.POST['pincode']
         phonenumber= request.POST['phonenumber']
         obj = Checkout(user=myuser,name=name,address=address,phonenumber=phonenumber,pincode=pincode)
+
         obj.save()
         return redirect('/')
     context = {
         'total':sum
     }
     return render(request,'checkout.html',context)
+
+
+def makepayment(request):
+    # o=Checkout.objects.filter(uid=request.user.id)
+    # sum=0
+    # np=len(o)
+    # context={}
+    # for i in o:
+    #     sum+=i.pid.price*i.quantity
+    #     oid=i.order_id
+    # sum=sum*100
+    myuser=request.user
+    c=Cart.objects.filter(uid=myuser.id)
+    
+    sum=0
+    for item in c:
+        sum+=int(item.pid.price)*item.quantity
+    pay = Payment.objects.create(user=myuser,amount=sum*100)
+    pay.save()
+    print('sum',sum)
+    client = razorpay.Client(auth=("rzp_test_BpQQcNXA6SMKyo","ArRAuCHky47XG3asUfG3uFzf"))
+    data = { "amount": sum, "currency": "INR", "receipt": id}
+    # payment = client.order.create(data=data)
+    
+    # print(payment)
+    # context['payment']=payment
+    context= { 'payment':pay }
+    print(pay.amount)
+    print(type(pay))
+    return render(request,"payment.html",context)
